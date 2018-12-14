@@ -21,7 +21,7 @@ for arg in sys.argv:
               excludeips.append(arg)
             else:
               # dns name resolves to multiple ips
-              excludeips = tmp[2]
+              excludeips += tmp[2]
         except:
             print >> sys.stderr, "Exception: %s" % str(e)
             sys.exit(1)
