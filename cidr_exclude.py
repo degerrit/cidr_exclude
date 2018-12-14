@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 
 from netaddr import *
-import pprint
-import fileinput, sys
-import socket, struct
+import sys
+import socket
 
 def read_stdin():
     readline = sys.stdin.readline()
@@ -17,20 +16,23 @@ for arg in sys.argv:
     if (sys.argv[0] != arg):
         try:
             tmp=socket.gethostbyname_ex(arg)
-            # print (tmp)
-            excludeips = tmp[2]
+            if ((tmp[2][0]) == arg):
+              # resolves to single ip
+              excludeips.append(arg)
+            else:
+              # dns name resolves to multiple ips
+              excludeips = tmp[2]
         except:
-            excludeips.append(arg)
+            print >> sys.stderr, "Exception: %s" % str(e)
+            sys.exit(1)
+
 
 for line in read_stdin():
     line = line.split()
+    found = 0
     for excludeip in excludeips:
         if (excludeip != '' and line[0] != ''):
             if IPAddress(excludeip) in IPNetwork(line[0]):
                 found = 1
-                break
-            else:
-                found = 0
-
     if (found == 0):
         print(line[0])
