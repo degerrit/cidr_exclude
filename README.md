@@ -1,5 +1,6 @@
 # cidr_exclude
-exclude an IP address or dns name from a stdin CIDR list, e.g. as extra whitelisting for ipset-blacklist
+Exclude an IP address or DNS name from a stdin CIDR list, e.g. as extra whitelisting for ipset-blacklist
+Doesn't accept a CIDR as argument, yet
 
 Syntax: accepts multiple arguments, dns name or ip address
 
